@@ -3,3 +3,4 @@
 
 void criarPecas(Peca p[]);
 void mostrarPecas(Peca p[]);
+void embaralharPecas(Peca p[]);

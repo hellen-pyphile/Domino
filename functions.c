@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "types.h"
-
+#define tamanho 28
 
 void criarPecas(Peca p[])
     {
@@ -35,3 +37,19 @@ void mostrarPecas(Peca p[])
                 printf("[%d]|[%d] ", p[c].esq, p[c].dir);
             }
     }
+     
+void embaralharPecas(Peca p[])
+    {
+        int i,j;
+        Peca temp;
+        srand((unsigned int)time(NULL));
+        for(i = 0; i < tamanho; i++) {
+            j = rand() % 28;
+            temp = p[i];
+            p[i] = p[j];
+            p[j] = temp;
+        }
+        mostrarPecas(p);
+    }
+ 
+ 

@@ -5,7 +5,6 @@ int main()
     {
         Peca p[28];
         criarPecas(p);
-        mostrarPecas(p);
-
+        embaralharPecas(p);
         return 0;
     }
