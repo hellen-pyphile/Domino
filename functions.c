@@ -65,6 +65,7 @@ void limparTela()
 void pause()
     {
         #if defined(_WIN32) || defined(_WIN64)
+            printf("\n\n");
             system("pause");
         #elif defined(__linux__) || defined(__unix__)
             printf("\n\nPressione Enter para continuar...");
