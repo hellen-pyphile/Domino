@@ -6,5 +6,9 @@ int main()
         Peca p[28];
         criarPecas(p);
         embaralharPecas(p);
+        pause();
+        limparTela();
         return 0;
     }
+
+    

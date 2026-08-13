@@ -34,10 +34,11 @@ void mostrarPecas(Peca p[])
                         atual = p[c].esq;
                     }
 
-                printf("[%d]|[%d] ", p[c].esq, p[c].dir);
+                printf("[%d|%d] ", p[c].esq, p[c].dir);
             }
     }
-     
+
+//Function to shuffle the pieces
 void embaralharPecas(Peca p[])
     {
         int i,j;
@@ -50,6 +51,25 @@ void embaralharPecas(Peca p[])
             p[j] = temp;
         }
         mostrarPecas(p);
+    }
+
+void limparTela()
+    {
+        #if defined(_WIN32) || defined(_WIN64)
+            system("cls");
+        #elif defined(__linux__) || defined(__unix__)
+            system("clear");
+        #endif
+    }
+
+void pause()
+    {
+        #if defined(_WIN32) || defined(_WIN64)
+            system("pause");
+        #elif defined(__linux__) || defined(__unix__)
+            printf("\n\nPressione Enter para continuar...");
+            getchar();
+        #endif
     }
  
  
