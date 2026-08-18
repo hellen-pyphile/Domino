@@ -1,31 +1,25 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include "model.h"
-#include "view.h"
+//DOM_HJRV_Controller - Projeto Dominó LP2026
+//18/08/2026
+//Hellen Araújo da Silva, João Vítor Carvalho Magalhães Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
 
-int main() {
-    Peca p[28];
+#include "Dom_HJRV_Controller.h"
+#include "Dom_HJRV_Model.h"
+#include "Dom_HJRV_View.h"
+
+void iniciarJogo() {
+    Status p[28];
     int op;
-
-    srand(time(NULL));
 
     do {
         limparTela();
-
-        printf("1 - Nova partida\n");
-        printf("2 - Mostrar pecas nao embaralhadas\n");
-        printf("3 - Mostras pecas (embaralhadas)\n");
-        printf("0 - Sair\n");
-        printf("\nOpcao: ");
-        scanf("%d", &op);
+        op = exibirMenu();
 
         switch(op) {
             case 1:
                 limparTela();
                 criarPecas(p);
                 embaralharPecas(p);
-                printf("Pecas criadas e embaralhadas.\n");
+                mostrarMensagem("Pecas criadas e embaralhadas.\n");
                 pause();
                 break;
             
@@ -45,15 +39,13 @@ int main() {
                 break;
 
             case 0:
-                printf("\nSaindo.\n");
+                mostrarMensagem("\nSaindo.\n");
                 break;
 
             default:
-                printf("\nOpcao invalida.\n");
+                mostrarMensagem("\nOpcao invalida.\n");
                 pause();
         }
 
     } while(op != 0);
-
-    return 0;
 }
