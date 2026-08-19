@@ -8,14 +8,10 @@
 typedef struct stpeca {
     int esq;
     int dir;
+    char status;
 } Peca;
 
-typedef struct ststatus {
-    struct stpeca Peca;
-    char status;
-} Status;
-
-void criarPecas(Status p[]);
-void embaralharPecas(Status p[]);
+void criarPecas(Peca p[]);
+void embaralharPecas(Peca p[]);
 
 #endif

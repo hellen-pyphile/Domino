@@ -1,13 +1,13 @@
 //DOM_HJRV_Controller - Projeto Dominó LP2026
 //18/08/2026
-//Hellen Araújo da Silva, João Vítor Carvalho Magalhães Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
+//Hellen Araujo da Silva, João Vitor Carvalho Magalhães Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
 
 #include "Dom_HJRV_Controller.h"
 #include "Dom_HJRV_Model.h"
 #include "Dom_HJRV_View.h"
 
 void iniciarJogo() {
-    Status p[28];
+    Peca p[28];
     int op;
 
     do {

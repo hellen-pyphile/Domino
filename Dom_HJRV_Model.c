@@ -5,23 +5,23 @@
 #include <stdlib.h>
 #include "Dom_HJRV_Model.h"
 
-void criarPecas(Status p[]) {
+void criarPecas(Peca p[]) {
     int i, j;
     int c = 0;
 
     for(i = 0; i <= 6; i++) {
         for (j = i; j <= 6; j++) {
-            p[c].Peca.esq = i;
-            p[c].Peca.dir = j;
+            p[c].esq = i;
+            p[c].dir = j;
             p[c].status = 'D';
             c++;
         }
     }
 }
 
-void embaralharPecas(Status p[]) {
+void embaralharPecas(Peca p[]) {
     int i, j;
-    Status temp;
+    Peca temp;
     
     for(i = 0; i < 28; i++) {
         j = rand() % 28;

@@ -40,10 +40,10 @@ void pause() {
 
 int exibirMenu() {
     int op;
-    printf("1 - Nova partida\n");
-    printf("2 - Mostrar pecas nao embaralhadas\n");
-    printf("3 - Mostrar pecas (embaralhadas)\n");
-    printf("0 - Sair\n");
+    printf("[1] - Nova partida\n");
+    printf("[2] - Mostrar pecas nao embaralhadas\n");
+    printf("[3] - Mostrar pecas (embaralhadas)\n");
+    printf("[0] - Sair\n");
     printf("\nOpcao: ");
     scanf("%d", &op);
     return op;
