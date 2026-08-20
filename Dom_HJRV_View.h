@@ -7,10 +7,9 @@
 
 #include "Dom_HJRV_Model.h"
 
-void mostrarPecas(Status p[]);
+void mostrarPecas(Peca p[]);
 void limparTela();
 void pause();
 int exibirMenu();
 void mostrarMensagem(const char* msg);
-
 #endif

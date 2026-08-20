@@ -6,20 +6,19 @@
 #include <stdlib.h>
 #include "Dom_HJRV_View.h"
 
-void mostrarPecas(Status p[]) {
-    int c;
-    int atual = 0;
+void mostrarPecas(Peca p[]) {
+    int i, j, c = 0;
 
-    for(c = 0; c <= 27; c++) {
-        if (p[c].Peca.esq > atual) {
-            printf("\n");
-            atual = p[c].Peca.esq;
-        }
-        printf("[%d|%d] ", p[c].Peca.esq, p[c].Peca.dir);
-    }
     printf("\n");
-}
 
+    for (i = 0; i <= 6; i++) {
+        for (j = i; j <= 6; j++) {
+            printf("[%d|%d] ", p[c].esq, p[c].dir);
+            c++;
+        }
+        printf("\n");
+    }
+}
 void limparTela() {
     #if defined(_WIN32) || defined(_WIN64)
         system("cls");
