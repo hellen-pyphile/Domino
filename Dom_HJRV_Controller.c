@@ -62,6 +62,14 @@ void iniciarJogo() {
                             mostrarStatus(p);
                             pause();
                             break;
+                        
+                        case 2:
+                            limparTela();
+                            mostrarMesa(Mesa[28]);
+                            pause();
+                            limparTela();
+                            limparMesa(Mesa[28]);
+                            mostrarMesa(Mesa[28]);
                             
                         case 0:
                             break;

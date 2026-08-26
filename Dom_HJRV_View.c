@@ -55,15 +55,13 @@ void pause() {
     #endif
 }
 
-void mostrarStatus(Peca p[])
-    {
-        int i;
-        
-        for(i = 0; i <= 27; i++)
-            {
-                printf("[%d|%d] -> Status: %c\n", p[i].esq, p[i].dir, p[i].status);
-            }
+void mostrarStatus(Peca p[]) {
+    int i;
+    
+    for(i = 0; i <= 27; i++) {
+        printf("[%d|%d] -> Status: %c\n", p[i].esq, p[i].dir, p[i].sts);
     }
+}
 
 int exibirMenu() {
     int op;
@@ -99,5 +97,24 @@ int menuAdm()
         while(getchar() != '\n');
 
         return op;
+    }
+
+void limparMesa(int Mesa[28])
+    {
+        int i;
+        
+        for(i = 0; i <= 27; i++)
+            {
+                Mesa[i] = '.';
+            }
+    }
+
+void mostrarMesa(int Mesa[28])
+    {
+        int i;
+        for(i = 0; i <= 27; i++)
+            {
+                printf("%d", Mesa[i]);
+            }
     }
 

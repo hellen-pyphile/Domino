@@ -15,4 +15,6 @@ int solicitarJogador();
 int menuAdm();
 void mostrarStatus(Peca p[]);
 void mostrarMensagem(const char* msg);
+void limparMesa(int Mesa[28]);
+void mostrarMesa(int Mesa[28]);
 #endif

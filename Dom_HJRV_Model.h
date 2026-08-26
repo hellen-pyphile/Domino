@@ -5,11 +5,23 @@
 #ifndef MODEL_H
 #define MODEL_H
 
+typedef enum _statusPeca{
+    Disp = 'D', J1 = '1', J2 = '2', Mesa = 'M'
+} statusPeca;
+
 typedef struct stpeca {
     int esq;
     int dir;
-    char status;
+    statusPeca sts;
 } Peca;
+
+typedef struct stpartida {
+    Peca p[28];
+    int qtd;
+    int turno;  
+    int mesaEsq;
+    int mesaDir;
+} Partida;
 
 void criarPecas(Peca p[]);
 void embaralharPecas(Peca p[]);

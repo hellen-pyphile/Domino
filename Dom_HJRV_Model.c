@@ -13,7 +13,7 @@ void criarPecas(Peca p[]) {
         for (j = i; j <= 6; j++) {
             p[c].esq = i;
             p[c].dir = j;
-            p[c].status = 'D';
+            p[c].sts = Disp;
             c++;
         }
     }
@@ -31,19 +31,14 @@ void embaralharPecas(Peca p[]) {
     }
 }
 
-//atribui as pecas ao jogador 1 e 2, as pecas restantes continuam com o status inicial de 'D'
-void distribuirPecas(Peca p[])
-    {
-        int i, j;
-        
-        for (i = 0; i <= 6; i++)
-            {
-                p[i].status = '1';
-            }
-
-        for (j = 7; j <= 13; j++)
-            {
-                p[j].status = '2';
-            }
+void distribuirPecas(Peca p[]) {
+    int i, j;
+    
+    for (i = 0; i <= 6; i++) {
+        p[i].sts = J1;
     }
 
+    for (j = 7; j <= 13; j++) {
+        p[j].sts = J2;
+    }
+}
