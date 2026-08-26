@@ -14,5 +14,6 @@ typedef struct stpeca {
 void criarPecas(Peca p[]);
 void embaralharPecas(Peca p[]);
 void mostrarPecas(Peca p[]);
+void distribuirPecas(Peca p[]);
 
 #endif

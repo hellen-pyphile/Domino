@@ -8,8 +8,10 @@
 
 void iniciarJogo() {
     Peca p[28];
-    int op;
+    int op, opadmin;
     int qtdJogadores;
+
+    criarPecas(p);
 
     do {
         limparTela();
@@ -18,17 +20,18 @@ void iniciarJogo() {
         switch(op) {
             case 1:
                 limparTela();
-                //garante que o usuario digite uma quantidade valida de jogadores antes de iniciar a partida
-                do{
+                do {
                     qtdJogadores = solicitarJogador();
                     if (qtdJogadores != 1 && qtdJogadores != 2 && qtdJogadores != 3) {
                         mostrarMensagem("Quantidade de jogadores invalida.\n");
                         pause();
                         limparTela();
                     }
-                }while(op != 1 && op != 2&& op != 3);
+                } while(qtdJogadores != 1 && qtdJogadores != 2 && qtdJogadores != 3);
+                
                 criarPecas(p);
                 embaralharPecas(p);
+                distribuirPecas(p);
                 mostrarMensagem("Pecas criadas e embaralhadas.\n");
                 pause();
                 break;
@@ -46,6 +49,28 @@ void iniciarJogo() {
                 embaralharPecas(p);
                 mostrarPecas(p);
                 pause();
+                break;
+                
+            case 4:
+                do {
+                    limparTela();
+                    opadmin = menuAdm();
+
+                    switch(opadmin) {
+                        case 1:
+                            limparTela();
+                            mostrarStatus(p);
+                            pause();
+                            break;
+                            
+                        case 0:
+                            break;
+                            
+                        default:
+                            mostrarMensagem("\nOpcao invalida.\n");
+                            pause();
+                    }
+                } while(opadmin != 0);
                 break;
 
             case 0:

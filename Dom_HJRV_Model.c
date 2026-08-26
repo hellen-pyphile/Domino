@@ -30,3 +30,20 @@ void embaralharPecas(Peca p[]) {
         p[j] = temp;
     }
 }
+
+//atribui as pecas ao jogador 1 e 2, as pecas restantes continuam com o status inicial de 'D'
+void distribuirPecas(Peca p[])
+    {
+        int i, j;
+        
+        for (i = 0; i <= 6; i++)
+            {
+                p[i].status = '1';
+            }
+
+        for (j = 7; j <= 13; j++)
+            {
+                p[j].status = '2';
+            }
+    }
+

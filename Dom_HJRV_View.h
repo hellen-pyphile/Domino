@@ -12,5 +12,7 @@ void limparTela();
 void pause();
 int exibirMenu();
 int solicitarJogador();
+int menuAdm();
+void mostrarStatus(Peca p[]);
 void mostrarMensagem(const char* msg);
 #endif
