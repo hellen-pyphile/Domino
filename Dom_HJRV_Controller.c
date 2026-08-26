@@ -9,6 +9,7 @@
 void iniciarJogo() {
     Peca p[28];
     int op;
+    int qtdJogadores;
 
     do {
         limparTela();
@@ -17,6 +18,15 @@ void iniciarJogo() {
         switch(op) {
             case 1:
                 limparTela();
+                //garante que o usuario digite uma quantidade valida de jogadores antes de iniciar a partida
+                do{
+                    qtdJogadores = solicitarJogador();
+                    if (qtdJogadores != 1 && qtdJogadores != 2 && qtdJogadores != 3) {
+                        mostrarMensagem("Quantidade de jogadores invalida.\n");
+                        pause();
+                        limparTela();
+                    }
+                }while(op != 1 && op != 2&& op != 3);
                 criarPecas(p);
                 embaralharPecas(p);
                 mostrarMensagem("Pecas criadas e embaralhadas.\n");

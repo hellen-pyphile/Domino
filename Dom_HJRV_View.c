@@ -1,6 +1,6 @@
 //DOM_HJRV_View - Projeto Dominó LP2026
 //18/08/2026
-//Hellen Araújo da Silva, João Vítor Carvalho Magalhães Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
+//Hellen Araujo da Silva, João Vitor Carvalho Magalhães Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,6 +19,24 @@ void mostrarPecas(Peca p[]) {
         printf("\n");
     }
 }
+
+int solicitarJogador()
+    {
+        int op;
+        printf("[1] - 1 jogador\n");
+        printf("[2] - 2 jogadores\n");
+        //implementar na req 20
+        printf("[3] - 2 jogadores (CPU)\n");
+        printf("\nOpcao: ");
+        //versao corrigida do scanf que evita erros de buffer em OS como linux e mac
+        if(scanf("%d", &op) != 1) {
+            op = -1;
+        }
+        while(getchar() != '\n');
+
+        return op;
+    }
+
 void limparTela() {
     #if defined(_WIN32) || defined(_WIN64)
         system("cls");
@@ -44,7 +62,12 @@ int exibirMenu() {
     printf("[3] - Mostrar pecas (embaralhadas)\n");
     printf("[0] - Sair\n");
     printf("\nOpcao: ");
-    scanf("%d", &op);
+
+    if(scanf("%d", &op) != 1) {
+         op = -1;
+    }
+    while(getchar() != '\n');
+
     return op;
 }
 
