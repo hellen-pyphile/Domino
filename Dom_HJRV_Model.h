@@ -17,10 +17,12 @@ typedef struct stpeca {
 
 typedef struct stpartida {
     Peca p[28];
+    Peca mesa[28];
     int qtd;
     int turno;  
     int mesaEsq;
     int mesaDir;
+    int qtdMesa;
 } Partida;
 
 void criarPecas(Peca p[]);

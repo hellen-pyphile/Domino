@@ -6,12 +6,17 @@
 #include "Dom_HJRV_Model.h"
 #include "Dom_HJRV_View.h"
 
+#include "Dom_HJRV_Controller.h"
+#include "Dom_HJRV_Model.h"
+#include "Dom_HJRV_View.h"
+
 void iniciarJogo() {
-    Peca p[28];
-    int op, opadmin;
+    Partida partida;       
+    int mesaVisual[28];    
+    int op, opadmin, opregras;
     int qtdJogadores;
 
-    criarPecas(p);
+    criarPecas(partida.p); 
 
     do {
         limparTela();
@@ -22,36 +27,78 @@ void iniciarJogo() {
                 limparTela();
                 do {
                     qtdJogadores = solicitarJogador();
-                    if (qtdJogadores != 1 && qtdJogadores != 2 && qtdJogadores != 3) {
+                    if (qtdJogadores != 1 && qtdJogadores != 2) {
                         mostrarMensagem("Quantidade de jogadores invalida.\n");
                         pause();
                         limparTela();
                     }
-                } while(qtdJogadores != 1 && qtdJogadores != 2 && qtdJogadores != 3);
+                } while(qtdJogadores != 1 && qtdJogadores != 2);
                 
-                criarPecas(p);
-                embaralharPecas(p);
-                distribuirPecas(p);
-                mostrarMensagem("Pecas criadas e embaralhadas.\n");
+                criarPecas(partida.p);
+                embaralharPecas(partida.p);
+                distribuirPecas(partida.p);
+                
+                partida.mesaEsq = -1;
+                partida.mesaDir = -1;
+                partida.qtdMesa = 0;
+
+                mostrarMensagem("Pecas criadas, embaralhadas e distribuidas.\n");
                 pause();
                 break;
             
             case 2:
                 limparTela();
-                criarPecas(p);
-                mostrarPecas(p);
+                criarPecas(partida.p);
+                mostrarPecas(partida.p);
                 pause();
                 break;
 
             case 3:
                 limparTela();
-                criarPecas(p);
-                embaralharPecas(p);
-                mostrarPecas(p);
+                criarPecas(partida.p);
+                embaralharPecas(partida.p);
+                mostrarPecas(partida.p);
                 pause();
                 break;
-                
+
             case 4:
+                do {
+                    limparTela();
+                    opregras = menuRegras();
+
+                    switch(opregras) {
+                        case 1:
+                            limparTela();
+                            menuRegras();
+                            pause();
+                            break;
+                        case 2:
+                            limparTela();
+                            //
+                            pause();
+                            break;
+                        case 3:
+                            limparTela();
+                            //
+                            pause();
+                            break;
+                        case 4:
+                            limparTela();
+                            //
+                            pause();
+                            break;
+                        case 5:
+                            limparTela();
+                            //
+                            pause();
+                            break;
+                        case 0:
+                            break;
+                    }
+                } while(opregras != 0);
+                break;
+
+            case 5:
                 do {
                     limparTela();
                     opadmin = menuAdm();
@@ -59,17 +106,16 @@ void iniciarJogo() {
                     switch(opadmin) {
                         case 1:
                             limparTela();
-                            mostrarStatus(p);
+                            mostrarStatus(partida.p);
                             pause();
                             break;
                         
                         case 2:
                             limparTela();
-                            mostrarMesa(Mesa[28]);
+                            limparMesa(mesaVisual); 
+                            mostrarMesa(mesaVisual);
                             pause();
-                            limparTela();
-                            limparMesa(Mesa[28]);
-                            mostrarMesa(Mesa[28]);
+                            break;
                             
                         case 0:
                             break;

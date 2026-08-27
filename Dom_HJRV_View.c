@@ -20,22 +20,19 @@ void mostrarPecas(Peca p[]) {
     }
 }
 
-int solicitarJogador()
-    {
-        int op;
-        printf("[1] - 1 jogador\n");
-        printf("[2] - 2 jogadores\n");
-        //implementar na req 20
-        printf("[3] - 2 jogadores (CPU)\n");
-        printf("\nOpcao: ");
-        //versao corrigida do scanf que evita erros de buffer em OS como linux e mac
-        if(scanf("%d", &op) != 1) {
-            op = -1;
-        }
-        while(getchar() != '\n');
-
-        return op;
+int solicitarJogador() {
+    int op;
+    printf("[1] - 1 jogador (CPU) \n");
+    printf("[2] - 2 jogadores\n");
+    printf("\nOpcao: ");
+    
+    if(scanf("%d", &op) != 1) {
+        op = -1;
     }
+    while(getchar() != '\n');
+
+    return op;
+}
 
 void limparTela() {
     #if defined(_WIN32) || defined(_WIN64)
@@ -63,12 +60,47 @@ void mostrarStatus(Peca p[]) {
     }
 }
 
+void mostrarMensagem(const char* msg) {
+    printf("%s", msg);
+}
+
+int menuAdm() {
+    int op;
+    printf("[1] - Visualizar Status das pecas\n");
+    printf("[0] - retornar para o menu principal\n");
+    printf("Opcao: \n");
+    
+    if(scanf("%d", &op) != 1) {
+        op = -1;
+    }
+    while(getchar() != '\n');
+
+    return op;
+}
+
+void limparMesa(int vetorMesa[28]) {
+    int i;
+    
+    for(i = 0; i <= 27; i++) {
+        vetorMesa[i] = '.';
+    }
+}
+
+void mostrarMesa(int vetorMesa[28]) {
+    int i;
+    
+    for(i = 0; i <= 27; i++) {
+        printf("%c ", vetorMesa[i]);
+    }
+}
+
 int exibirMenu() {
     int op;
     printf("[1] - Nova partida\n");
     printf("[2] - Mostrar pecas nao embaralhadas\n");
     printf("[3] - Mostrar pecas (embaralhadas)\n");
-    printf("[4] - Admin\n");
+    printf("[4] - Regras\n");
+    printf("[5] - Admin\n");
     printf("[0] - Sair\n");
     printf("\nOpcao: ");
 
@@ -80,41 +112,21 @@ int exibirMenu() {
     return op;
 }
 
-void mostrarMensagem(const char* msg) {
-    printf("%s", msg);
-}
-
-//menu para debug e teste de funcoes
-int menuAdm()
+int menuRegras()
     {
         int op;
-        printf("[1] - Visualizar Status das pecas\n");
-        printf("[0] - retornar para o menu principal\n");
-        printf("Opcao: \n");
+        printf("[1] - Preparacao para o jogo\n");
+        printf("[2] - Inicio\n");
+        printf("[3] - Turnos\n");
+        printf("[4] - Compras\n");
+        printf("[5] - Condicoes de vitoria\n");
+        printf("[0] - Sair\n");
+        printf("Opcao: \n");    
+
         if(scanf("%d", &op) != 1) {
             op = -1;
         }
-        while(getchar() != '\n');
+        while (getchar() != '\n');
 
         return op;
     }
-
-void limparMesa(int Mesa[28])
-    {
-        int i;
-        
-        for(i = 0; i <= 27; i++)
-            {
-                Mesa[i] = '.';
-            }
-    }
-
-void mostrarMesa(int Mesa[28])
-    {
-        int i;
-        for(i = 0; i <= 27; i++)
-            {
-                printf("%d", Mesa[i]);
-            }
-    }
-

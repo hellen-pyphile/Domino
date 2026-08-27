@@ -23,8 +23,9 @@ void embaralharPecas(Peca p[]) {
     int i, j;
     Peca temp;
     
-    for(i = 0; i < 28; i++) {
-        j = rand() % 28;
+    for (i = 27; i > 0; i--) {
+        j = rand() % (i + 1);
+        
         temp = p[i];
         p[i] = p[j];
         p[j] = temp;

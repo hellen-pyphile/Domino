@@ -7,8 +7,7 @@
 #include "Dom_HJRV_Controller.h"
 
 int main() {
-    long long int t = time(NULL);
-    srand(t);
+    srand((unsigned int)time(NULL));
     iniciarJogo();
     return 0;
 }
