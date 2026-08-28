@@ -19,18 +19,22 @@ void criarPecas(Peca p[]) {
     }
 }
 
-void embaralharPecas(Peca p[]) {
-    int i, j;
-    Peca temp;
-    
-    for (i = 27; i > 0; i--) {
-        j = rand() % (i + 1);
-        
-        temp = p[i];
-        p[i] = p[j];
-        p[j] = temp;
+//funcao para embaralhar as pecas utilizando o algoritmo Fisher-Yates
+//ref: https://github.com/JDSherbert/Fisher-Yates-Shuffle
+void embaralharPecas(Peca p[])
+    {
+        int i, j;
+        Peca temp;
+
+        for(i = 27; i > 0; i--)
+            {
+                j = rand() % (i+1);
+
+                temp = p[i];
+                p[i] = p[j];
+                p[j] = temp;
+            }
     }
-}
 
 void distribuirPecas(Peca p[]) {
     int i, j;

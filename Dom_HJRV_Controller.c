@@ -6,10 +6,6 @@
 #include "Dom_HJRV_Model.h"
 #include "Dom_HJRV_View.h"
 
-#include "Dom_HJRV_Controller.h"
-#include "Dom_HJRV_Model.h"
-#include "Dom_HJRV_View.h"
-
 void iniciarJogo() {
     Partida partida;       
     int mesaVisual[28];    
@@ -69,27 +65,23 @@ void iniciarJogo() {
                     switch(opregras) {
                         case 1:
                             limparTela();
-                            menuRegras();
+                            mostrarMensagem("Exibicao das regras.\n");
                             pause();
                             break;
                         case 2:
                             limparTela();
-                            //
                             pause();
                             break;
                         case 3:
                             limparTela();
-                            //
                             pause();
                             break;
                         case 4:
                             limparTela();
-                            //
                             pause();
                             break;
                         case 5:
                             limparTela();
-                            //
                             pause();
                             break;
                         case 0:

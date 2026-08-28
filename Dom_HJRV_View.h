@@ -18,6 +18,6 @@ void mostrarMensagem(const char* msg);
 void limparMesa(int vetorMesa[28]);
 void mostrarMesa(int vetorMesa[28]);
 int menuAdm();
-int menuRegras()
+int menuRegras();
 
 #endif
