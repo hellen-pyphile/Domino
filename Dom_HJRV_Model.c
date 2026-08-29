@@ -101,9 +101,62 @@ int comprarPeca(Partida *partida, int jogador) {
     int i;
     for(i = 14; i <= 27; i++) {
         if(partida->p[i].sts == Disp) {
-            partida->p[i].sts = (jogador == 1) ? J1 : J2;
-            return 1;
+            if(jogador == 1) {
+                partida->p[i].sts = J1;
+            } else {
+                partida->p[i].sts = J2;
+            }
+            return 1; // peca comprada com sucesso  
         }
     }
     return 0; //nenhuma peca disponivel para compra
 }
+
+int realizarJogada(Partida *partida, int jogador, int indicePeca, char lado) 
+    {
+        if(lado == 'E'){
+
+            if(partida->mesaEsq == partida->p[indicePeca].esq)
+            {
+                partida->mesaEsq = partida->p[indicePeca].dir;
+            }
+
+            else if(partida->mesaEsq == partida->p[indicePeca].dir)
+                {
+                    partida->mesaEsq = partida->p[indicePeca].esq;
+                }
+
+            else
+                {
+                    return 0;
+                }
+        }
+
+        else if (lado == 'D'){
+
+            if(partida->mesaDir == partida->p[indicePeca].esq)
+                {
+                    partida->mesaDir = partida->p[indicePeca].dir;
+                }
+
+            else if(partida->mesaDir == partida->p[indicePeca].dir)
+                {
+                    partida->mesaDir = partida->p[indicePeca].esq;
+                }
+
+            else    
+                {
+                    return 0;
+                }
+        }
+
+        else
+        {
+            return 0; //jogador digitou algo diferente de 'E' ou 'D'
+        }
+
+        partida->p[indicePeca].sts = Mesa;
+        partida->mesa[partida->qtdMesa] = partida->p[indicePeca];
+        partida->qtdMesa++;
+        return 1;
+    }   

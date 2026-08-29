@@ -31,5 +31,6 @@ void mostrarPecas(Peca p[]);
 void distribuirPecas(Peca p[]);
 int primeiroLance(Partida *partida);
 int comprarPeca(Partida *partida, int jogador);
+int realizarJogada(Partida *partida, int jogador, int indicePeca, char lado);
 
 #endif
