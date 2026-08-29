@@ -30,5 +30,6 @@ void embaralharPecas(Peca p[]);
 void mostrarPecas(Peca p[]);
 void distribuirPecas(Peca p[]);
 int primeiroLance(Partida *partida);
+int comprarPeca(Partida *partida, int jogador);
 
 #endif

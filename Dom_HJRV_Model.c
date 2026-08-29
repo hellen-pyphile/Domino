@@ -48,12 +48,13 @@ void distribuirPecas(Peca p[]) {
     }
 }
 
+//funcao para determinar qual jogador fara o primeiro lance
 int primeiroLance(Partida *partida)
     {
         int i;
         int maior = -1;
         int indiceMaior = -1;
-        
+        //verifica se algum jogador possui um duplo, caso possua, o jogador com o maior duplo fara o primeiro lance
         for(i = 0; i <= 13; i++)
             {
                 if(partida->p[i].esq == partida->p[i].dir)
@@ -65,7 +66,7 @@ int primeiroLance(Partida *partida)
                     }
                 }
             }
-
+        //caso nenhum jogador possua um duplo, o jogador com a peca de maior valor fara o primeiro lance
         if(indiceMaior == -1)
         {
             for(i = 0; i <= 13; i++)
@@ -94,3 +95,15 @@ int primeiroLance(Partida *partida)
         }
 
     }
+
+//funcao para comprar uma peca do monte
+int comprarPeca(Partida *partida, int jogador) {
+    int i;
+    for(i = 14; i <= 27; i++) {
+        if(partida->p[i].sts == Disp) {
+            partida->p[i].sts = (jogador == 1) ? J1 : J2;
+            return 1;
+        }
+    }
+    return 0; //nenhuma peca disponivel para compra
+}
