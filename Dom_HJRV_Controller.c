@@ -40,8 +40,9 @@ void iniciarJogo() {
 
                 mostrarMensagem("Pecas criadas, embaralhadas e distribuidas.\n");
                 pause();
+                partida.turno = primeiroLance(&partida);
                 break;
-            
+                
             case 2:
                 limparTela();
                 criarPecas(partida.p);

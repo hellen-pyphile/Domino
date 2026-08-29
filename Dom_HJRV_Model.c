@@ -47,3 +47,50 @@ void distribuirPecas(Peca p[]) {
         p[j].sts = J2;
     }
 }
+
+int primeiroLance(Partida *partida)
+    {
+        int i;
+        int maior = -1;
+        int indiceMaior = -1;
+        
+        for(i = 0; i <= 13; i++)
+            {
+                if(partida->p[i].esq == partida->p[i].dir)
+                {
+                    if(partida->p[i].esq > maior)
+                    {
+                        maior = partida->p[i].esq;
+                        indiceMaior = i;
+                    }
+                }
+            }
+
+        if(indiceMaior == -1)
+        {
+            for(i = 0; i <= 13; i++)
+            {
+                if(partida->p[i].esq + partida->p[i].dir > maior)
+                {
+                    maior = partida->p[i].esq + partida->p[i].dir;
+                    indiceMaior = i;
+                }
+            }
+        }
+
+        partida->p[indiceMaior].sts = Mesa;
+        partida->mesa[0] = partida->p[indiceMaior];
+        partida->mesaEsq = partida->p[indiceMaior].esq;
+        partida->mesaDir = partida->p[indiceMaior].dir;
+        partida->qtdMesa = 1;
+
+        if(indiceMaior <= 6)
+        {
+            return 1;
+        }
+        else
+        {
+            return 2;
+        }
+
+    }

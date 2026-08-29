@@ -29,5 +29,6 @@ void criarPecas(Peca p[]);
 void embaralharPecas(Peca p[]);
 void mostrarPecas(Peca p[]);
 void distribuirPecas(Peca p[]);
+int primeiroLance(Partida *partida);
 
 #endif
