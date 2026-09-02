@@ -112,51 +112,131 @@ int comprarPeca(Partida *partida, int jogador) {
     return 0; //nenhuma peca disponivel para compra
 }
 
-int realizarJogada(Partida *partida, int jogador, int indicePeca, char lado) 
-    {
-        if(lado == 'E'){
+//funcao para validar e efetuar a jogada na mesa nas extremidades E ou D
+int realizarJogada(Partida *partida, int jogador, int indicePeca, char lado) {
+    int troca;
+    int i;
+    
+    if(lado == 'e') {
+        lado = 'E';
+    }
+    else if(lado == 'd') {
+        lado = 'D';
+    }
 
-            if(partida->mesaEsq == partida->p[indicePeca].esq)
-            {
-                partida->mesaEsq = partida->p[indicePeca].dir;
-            }
-
-            else if(partida->mesaEsq == partida->p[indicePeca].dir)
-                {
-                    partida->mesaEsq = partida->p[indicePeca].esq;
-                }
-
-            else
-                {
-                    return 0;
-                }
+    if(jogador == 1) {
+        if(partida->p[indicePeca].sts != J1) {
+            return 0;
         }
-
-        else if (lado == 'D'){
-
-            if(partida->mesaDir == partida->p[indicePeca].esq)
-                {
-                    partida->mesaDir = partida->p[indicePeca].dir;
-                }
-
-            else if(partida->mesaDir == partida->p[indicePeca].dir)
-                {
-                    partida->mesaDir = partida->p[indicePeca].esq;
-                }
-
-            else    
-                {
-                    return 0;
-                }
+    }
+    else if(jogador == 2) {
+        if(partida->p[indicePeca].sts != J2) {
+            return 0;
         }
-
-        else
-        {
-            return 0; //jogador digitou algo diferente de 'E' ou 'D'
+    }
+    //desloca a mesa para inserir a peca na esquerda ou adiciona na direita
+    if(lado == 'E'){
+        if(partida->mesaEsq == partida->p[indicePeca].esq) {
+            partida->mesaEsq = partida->p[indicePeca].dir;
+            
+            troca = partida->p[indicePeca].esq;
+            partida->p[indicePeca].esq = partida->p[indicePeca].dir;
+            partida->p[indicePeca].dir = troca;
         }
+        else if(partida->mesaEsq == partida->p[indicePeca].dir) {
+            partida->mesaEsq = partida->p[indicePeca].esq;
+        }
+        else {
+            return 0;
+        }
+    }
+    else if(lado == 'D'){
+        if(partida->mesaDir == partida->p[indicePeca].esq) {
+            partida->mesaDir = partida->p[indicePeca].dir;
+        }
+        else if(partida->mesaDir == partida->p[indicePeca].dir) {
+            partida->mesaDir = partida->p[indicePeca].esq;
+            
+            troca = partida->p[indicePeca].esq;
+            partida->p[indicePeca].esq = partida->p[indicePeca].dir;
+            partida->p[indicePeca].dir = troca;
+        }
+        else {
+            return 0;
+        }
+    }
+    else {
+        return 0;
+    }
 
-        partida->p[indicePeca].sts = Mesa;
+    partida->p[indicePeca].sts = Mesa;
+    if(lado == 'E') {
+        for(i = partida->qtdMesa; i > 0; i--) {
+            partida->mesa[i] = partida->mesa[i - 1];
+        }
+        partida->mesa[0] = partida->p[indicePeca];
+    }
+    else {
         partida->mesa[partida->qtdMesa] = partida->p[indicePeca];
-        partida->qtdMesa++;
+    }
+    
+    partida->qtdMesa++;
+    return 1;
+}
+
+//funcao para verificar condicoes de vitoria por bateria ou jogo trancado
+int FimDeJogo(Partida *partida) {
+    int i;
+    int qtdJ1 = 0;
+    int qtdJ2 = 0;
+    int pecasDisponiveis = 0;
+    int jogadaPossivelJ1 = 0;
+    int jogadaPossivelJ2 = 0;
+//conta quantas pecas cada jogador ainda possui em mao
+    for(i = 0; i <= 27; i++) {
+        if(partida->p[i].sts == J1) {
+            qtdJ1++;
+        }
+        else if(partida->p[i].sts == J2) {
+            qtdJ2++;
+        }
+    }
+
+    if(qtdJ1 == 0) {
         return 1;
-    }   
+    }
+    if(qtdJ2 == 0) {
+        return 2;
+    }
+
+    for(i = 14; i <= 27; i++) {
+        if(partida->p[i].sts == Disp) {
+            pecasDisponiveis++;
+        }
+    }
+
+    if(pecasDisponiveis > 0) {
+        return 0;
+    }
+//verifica se os jogadores possuem jogadas possiveis nas extremidades
+    for(i = 0; i <= 13; i++) {
+        if(partida->p[i].sts == J1) {
+            if(partida->p[i].esq == partida->mesaEsq || partida->p[i].dir == partida->mesaEsq ||
+               partida->p[i].esq == partida->mesaDir || partida->p[i].dir == partida->mesaDir) {
+                jogadaPossivelJ1 = 1;
+            }
+        }
+        else if(partida->p[i].sts == J2) {
+            if(partida->p[i].esq == partida->mesaEsq || partida->p[i].dir == partida->mesaEsq ||
+               partida->p[i].esq == partida->mesaDir || partida->p[i].dir == partida->mesaDir) {
+                jogadaPossivelJ2 = 1;
+            }
+        }
+    }
+
+    if(jogadaPossivelJ1 == 0 && jogadaPossivelJ2 == 0) {
+        return 3;
+    }
+
+    return 0;
+}

@@ -8,16 +8,13 @@
 #include "Dom_HJRV_Model.h"
 
 void mostrarPecas(Peca p[]);
-int solicitarJogador();
 void limparTela();
 void pause();
-int exibirMenu();
-int solicitarJogador();
 void mostrarStatus(Peca p[]);
 void mostrarMensagem(const char* msg);
 void limparMesa(int vetorMesa[28]);
 void mostrarMesa(int vetorMesa[28]);
-int menuAdm();
-int menuRegras();
+void mostrarJogo(Partida *partida);
+int mostrarMenu(int id);
 
 #endif
