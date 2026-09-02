@@ -1,6 +1,7 @@
 //DOM_HJRV_Controller - Projeto Dominó LP2026
-//18/08/2026
+//02/09/2026
 //Hellen Araujo da Silva, João Vitor Carvalho Magalhães Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
+//Req07, Req14, Req17
 
 #include "Dom_HJRV_Controller.h"
 #include "Dom_HJRV_Model.h"
@@ -54,7 +55,7 @@ void iniciarJogo() {
                 while(jogo == 1) {
                     limparTela();
                     
-                    printf("Turno: %d\n", partida.turno);
+                    printf("Jogador: %d\n", partida.turno);
                     mostrarJogo(&partida);
                     escolha = mostrarMenu(5);
                     
@@ -130,22 +131,47 @@ void iniciarJogo() {
             case 4:
                 do {
                     limparTela();
-                    opregras = mostrarMenu(3);
+                    opregras = mostrarMenu(6);
 
                     switch(opregras) {
                         case 1:
                             limparTela();
-                            mostrarMensagem("Exibicao das regras.\n");
+                            mostrarMensagem("- O jogo pode ser jogado entre 2 jogadores ou contra o computador\n");
+                            mostrarMensagem("- Cada jogador deve comprar 7 pecas\n");
                             pause();
                             break;
+                        
                         case 2:
+                            limparTela();
+                            mostrarMensagem("- O jogador com a carroca/bucha de 6 deve iniciar o jogo\n");
+                            mostrarMensagem("- Caso nenhum jogador tenha a carroca/bucha de 6, sera priorizada a maior carroca/bucha\n");
+                            mostrarMensagem("- No caso de nenhum jogador possuir uma carroca/bucha, sera considerada a maior soma (Ex: [6|5] -> 6 + 5 = 11) \n");
+                            pause();
+                            break;
+                        
                         case 3:
+                            limparTela();
+                            mostrarMensagem("- Os turnos devem ser alternados\n");
+                            // ????
+                            pause();
+                            break;
+                            
                         case 4:
+                            limparTela();
+                            mostrarMensagem("- Ganha o jogador que jogar esvaziar sua mao primeiro\n");
+                            mostrarMensagem("- Em caso de jogo fechado \n");
+                            mostrarMensagem("\t - Ganha o jogador com menos pecas\n");
+                            mostrarMensagem("\t - Em caso de empate no numero de pecas, considera a mao com a menor soma (Ex: [1|0] -> 1 + 0 = 1)\n"); //verificar regra
+                            mostrarMensagem("- O empate ocorre caso nenhum dos criterios acima sejam cumpridos");
+                            pause();
+                            break;
+                        
                         case 5:
                             limparTela();
+                            mostrarMensagem("- Caso nao possa fazer uma jogada, o jogador deve comprar ate ter uma peca que possibilite que ele continue o jogo\n");
+                            mostrarMensagem("- O jogador pode optar por comprar uma peca como blefe\n");
+                            mostrarMensagem("- Caso as pecas do monte acabem, o jogador que nao puder fazer uma jogada deve passar a vez\n");
                             pause();
-                            break;
-                        case 0:
                             break;
                     }
                 } while(opregras != 0);

@@ -1,6 +1,7 @@
 //DOM_HJRV_View - Projeto Dominó LP2026
-//18/08/2026
+//02/09/2026
 //Hellen Araujo da Silva, João Vitor Carvalho Magalhães Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
+//Req07, Req09, Req13, Req14, Req17
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -125,6 +126,14 @@ int mostrarMenu(int id) {
         case 5:
             printf("\n[1] - Jogar\n");
             printf("[2] - Comprar\n");
+            printf("[0] - Sair\n");
+            break;
+        case 6:
+            printf("\n[1] - Preparar jogo\n");
+            printf("[2] - Inicio do jogo\n");
+            printf("[3] - Turnos\n");
+            printf("[4] - Como ganhar\n");
+            printf("[5] - Compra/Passar turno\n");
             printf("[0] - Sair\n");
             break;
     }

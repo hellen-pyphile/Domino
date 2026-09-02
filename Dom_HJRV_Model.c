@@ -1,6 +1,7 @@
 //DOM_HJRV_Model - Projeto Dominó LP2026
-//18/08/2026
+//02/09/2026
 //Hellen Araujo da Silva, João Vitor Carvalho Magalhães Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
+//Req 08, Req 10, Req 11, Req 12, Req15, Req16
 
 #include <stdlib.h>
 #include "Dom_HJRV_Model.h"
@@ -79,12 +80,14 @@ int primeiroLance(Partida *partida)
             }
         }
 
+        //faz as atribuicoes e alteracoes dos valores apos a verificacao
         partida->p[indiceMaior].sts = Mesa;
         partida->mesa[0] = partida->p[indiceMaior];
         partida->mesaEsq = partida->p[indiceMaior].esq;
         partida->mesaDir = partida->p[indiceMaior].dir;
         partida->qtdMesa = 1;
 
+        //valores de return para bucha ou soma
         if(indiceMaior <= 6)
         {
             return 1;
@@ -124,6 +127,7 @@ int realizarJogada(Partida *partida, int jogador, int indicePeca, char lado) {
         lado = 'D';
     }
 
+    //verifica se a peca mais recente e' do jogador 1 ou 2 para determinar o turno
     if(jogador == 1) {
         if(partida->p[indicePeca].sts != J1) {
             return 0;
@@ -134,6 +138,7 @@ int realizarJogada(Partida *partida, int jogador, int indicePeca, char lado) {
             return 0;
         }
     }
+
     //desloca a mesa para inserir a peca na esquerda ou adiciona na direita
     if(lado == 'E'){
         if(partida->mesaEsq == partida->p[indicePeca].esq) {
@@ -169,6 +174,7 @@ int realizarJogada(Partida *partida, int jogador, int indicePeca, char lado) {
         return 0;
     }
 
+    //atualizacao do vetor mesa a cada jogada
     partida->p[indicePeca].sts = Mesa;
     if(lado == 'E') {
         for(i = partida->qtdMesa; i > 0; i--) {
@@ -184,7 +190,7 @@ int realizarJogada(Partida *partida, int jogador, int indicePeca, char lado) {
     return 1;
 }
 
-//funcao para verificar condicoes de vitoria por bateria ou jogo trancado
+//funcao para verificar condicoes de vitoria por batida ou jogo trancado
 int FimDeJogo(Partida *partida) {
     int i;
     int qtdJ1 = 0;
@@ -192,6 +198,7 @@ int FimDeJogo(Partida *partida) {
     int pecasDisponiveis = 0;
     int jogadaPossivelJ1 = 0;
     int jogadaPossivelJ2 = 0;
+
 //conta quantas pecas cada jogador ainda possui em mao
     for(i = 0; i <= 27; i++) {
         if(partida->p[i].sts == J1) {
@@ -218,6 +225,7 @@ int FimDeJogo(Partida *partida) {
     if(pecasDisponiveis > 0) {
         return 0;
     }
+    
 //verifica se os jogadores possuem jogadas possiveis nas extremidades
     for(i = 0; i <= 13; i++) {
         if(partida->p[i].sts == J1) {
@@ -234,9 +242,9 @@ int FimDeJogo(Partida *partida) {
         }
     }
 
+    //implementar soma
     if(jogadaPossivelJ1 == 0 && jogadaPossivelJ2 == 0) {
         return 3;
     }
-
     return 0;
 }
