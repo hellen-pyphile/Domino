@@ -1,6 +1,6 @@
-//DOM_HJRV_Controller - Projeto Dominó LP2026
+//DOM_HJRV_Controller - Projeto DominÃ³ LP2026
 //02/09/2026
-//Hellen Araujo da Silva, João Vitor Carvalho Magalhães Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
+//Hellen Araujo da Silva, JoÃ£o Vitor Carvalho MagalhÃ£es Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
 //Req07, Req14, Req17
 
 #include "Dom_HJRV_Controller.h"
@@ -48,7 +48,7 @@ void iniciarJogo() {
 
                 mostrarMensagem("Pecas criadas, embaralhadas e distribuidas.\n");
                 pause();
-                partida.turno = primeiroLance(&partida);
+    			primeiroLance(&partida);
                 
                 jogo = 1;
                 
