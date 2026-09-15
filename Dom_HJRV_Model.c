@@ -1,9 +1,10 @@
-//DOM_HJRV_Model - Projeto Dominó LP2026
+//DOM_HJRV_Model - Projeto DominÃ³ LP2026
 //02/09/2026
-//Hellen Araujo da Silva, João Vitor Carvalho Magalhães Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
+//Hellen Araujo da Silva, JoÃ£o Vitor Carvalho MagalhÃ£es Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
 //Req 08, Req 10, Req 11, Req 12, Req15, Req16
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "Dom_HJRV_Model.h"
 
 void criarPecas(Peca p[]) {
@@ -80,8 +81,16 @@ int primeiroLance(Partida *partida)
             }
         }
 
-        //faz as atribuicoes e alteracoes dos valores apos a verificacao
-        partida->p[indiceMaior].sts = Mesa;
+		if(partida->p[indiceMaior].sts == J1)
+        {
+        	partida->turno = 2;
+		}
+		else if(partida->p[indiceMaior].sts == J2)
+		{
+        	partida->turno = 1;
+		}
+		//faz as atribuicoes e alteracoes dos valores apos a verificacao
+		partida->p[indiceMaior].sts = Mesa;
         partida->mesa[0] = partida->p[indiceMaior];
         partida->mesaEsq = partida->p[indiceMaior].esq;
         partida->mesaDir = partida->p[indiceMaior].dir;
