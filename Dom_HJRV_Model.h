@@ -26,6 +26,10 @@ typedef struct stpartida {
     int qtdMesa;
 } Partida;
 
+struct sitjogo {
+	int qtdMesaJogo;
+}Situacao;
+
 void criarPecas(Peca p[]);
 void embaralharPecas(Peca p[]);
 void mostrarPecas(Peca p[]);

@@ -112,15 +112,22 @@ void iniciarJogo() {
                     }
                 }
                 break;
-                
+            
             case 2:
+        		limparTela();
+        		mostrarMensagem("\nDando o Cu\n");
+        		pause();
+        		break;
+            	//loadJogo();
+            
+            case 3:
                 limparTela();
                 criarPecas(partida.p);
                 mostrarPecas(partida.p);
                 pause();
                 break;
 
-            case 3:
+            case 4:
                 limparTela();
                 criarPecas(partida.p);
                 embaralharPecas(partida.p);
@@ -128,7 +135,7 @@ void iniciarJogo() {
                 pause();
                 break;
 
-            case 4:
+            case 5:
                 do {
                     limparTela();
                     opregras = mostrarMenu(6);
@@ -177,7 +184,7 @@ void iniciarJogo() {
                 } while(opregras != 0);
                 break;
 
-            case 5:
+            case 6:
                 do {
                     limparTela();
                     opadmin = mostrarMenu(2);

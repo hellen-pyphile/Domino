@@ -101,10 +101,11 @@ int mostrarMenu(int id) {
     switch(id) {
         case 1:
             printf("\n[1] - Nova partida\n");
-            printf("[2] - Mostrar pecas nao embaralhadas\n");
-            printf("[3] - Mostrar pecas (embaralhadas)\n");
-            printf("[4] - Regras\n");
-            printf("[5] - Admin\n");
+            printf("[2] - Continuar partida\n");
+            printf("[3] - Mostrar pecas nao embaralhadas\n");
+            printf("[4] - Mostrar pecas (embaralhadas)\n");
+            printf("[5] - Regras\n");
+            printf("[6] - Admin\n");
             printf("[0] - Sair\n");
             break;
         case 2:

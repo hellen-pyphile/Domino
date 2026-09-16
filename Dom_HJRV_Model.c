@@ -257,3 +257,5 @@ int FimDeJogo(Partida *partida) {
     }
     return 0;
 }
+
+
