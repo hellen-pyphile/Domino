@@ -1,16 +1,23 @@
-//DOM_HJRV_Model - Projeto DominÃ³ LP2026
-//02/09/2026
-//Hellen Araujo da Silva, JoÃ£o Vitor Carvalho MagalhÃ£es Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
+//DOM_HJRV_Model - Projeto Domino LP2026
+//22/09/2026
+//Hellen Araujo da Silva, Joao Vitor Carvalho Magalhaes Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
 //Req 08, Req 10, Req 11, Req 12, Req15, Req16
 
 #include <stdlib.h>
 #include <stdio.h>
 #include "Dom_HJRV_Model.h"
 
+/*
+** Cria as 28 pecas do domino, preenchendo os valores esquerdo e direito
+** de cada uma e marcando-as como disponiveis
+** Parametros:
+**      p[] - (Peca) array com todas as pecas do jogo
+*/
 void criarPecas(Peca p[]) {
     int i, j;
-    int c = 0;
+    int c = 0;  // indice da peca atual dentro do array p[]
 
+    // percorre todas as combinacoes possiveis de lado esquerdo e direito
     for(i = 0; i <= 6; i++) {
         for (j = i; j <= 6; j++) {
             p[c].esq = i;
@@ -21,7 +28,11 @@ void criarPecas(Peca p[]) {
     }
 }
 
-//funcao para embaralhar as pecas utilizando o algoritmo Fisher-Yates
+/*
+** Embaralha o array de pecas utilizando o algoritmo Fisher-Yates
+** Parametros:
+**      p[] - (Peca) array com todas as pecas do jogo (por referencia)
+*/
 //ref: https://github.com/JDSherbert/Fisher-Yates-Shuffle
 void embaralharPecas(Peca p[])
     {
@@ -38,6 +49,12 @@ void embaralharPecas(Peca p[])
             }
     }
 
+/*
+** Distribui as 14 primeiras pecas do array entre os jogadores 1 e 2
+** (7 pecas para cada um), alterando o status de cada peca
+** Parametros:
+**      p[] - (Peca) array com todas as pecas do jogo (por referencia)
+*/
 void distribuirPecas(Peca p[]) {
     int i, j;
     
@@ -50,12 +67,18 @@ void distribuirPecas(Peca p[]) {
     }
 }
 
-//funcao para determinar qual jogador fara o primeiro lance
+/*
+** Determina qual jogador fara o primeiro lance da partida e realiza
+** essa primeira jogada, atualizando a mesa
+** Parametros:
+**      *partida - (Partida) dados da partida atual (por referencia)
+*/
 int primeiroLance(Partida *partida)
     {
         int i;
-        int maior = -1;
-        int indiceMaior = -1;
+        int maior = -1;       // guarda o maior valor encontrado (duplo ou soma)
+        int indiceMaior = -1; // indice da peca com o maior valor encontrado
+        
         //verifica se algum jogador possui um duplo, caso possua, o jogador com o maior duplo fara o primeiro lance
         for(i = 0; i <= 13; i++)
             {
@@ -68,6 +91,7 @@ int primeiroLance(Partida *partida)
                     }
                 }
             }
+            
         //caso nenhum jogador possua um duplo, o jogador com a peca de maior valor fara o primeiro lance
         if(indiceMaior == -1)
         {
@@ -89,14 +113,13 @@ int primeiroLance(Partida *partida)
 		{
         	partida->turno = 1;
 		}
-		//faz as atribuicoes e alteracoes dos valores apos a verificacao
+		
 		partida->p[indiceMaior].sts = Mesa;
         partida->mesa[0] = partida->p[indiceMaior];
         partida->mesaEsq = partida->p[indiceMaior].esq;
         partida->mesaDir = partida->p[indiceMaior].dir;
         partida->qtdMesa = 1;
 
-        //valores de return para bucha ou soma
         if(indiceMaior <= 6)
         {
             return 1;
@@ -105,12 +128,16 @@ int primeiroLance(Partida *partida)
         {
             return 2;
         }
-
     }
 
-//funcao para comprar uma peca do monte
+/*
+** Compra uma peca do monte (pecas ainda disponiveis) para o jogador informado
+** Parametros:
+**      *partida - (Partida) dados da partida atual (por referencia)
+**       jogador -    (int) numero do jogador que esta comprando (1 ou 2)
+*/
 int comprarPeca(Partida *partida, int jogador) {
-    int i;
+    int i; 
     for(i = 14; i <= 27; i++) {
         if(partida->p[i].sts == Disp) {
             if(jogador == 1) {
@@ -118,15 +145,22 @@ int comprarPeca(Partida *partida, int jogador) {
             } else {
                 partida->p[i].sts = J2;
             }
-            return 1; // peca comprada com sucesso  
+            return 1; 
         }
     }
-    return 0; //nenhuma peca disponivel para compra
+    return 0;
 }
 
-//funcao para validar e efetuar a jogada na mesa nas extremidades E ou D
+/*
+** Valida e efetua a jogada de uma peca em uma das extremidades da mesa
+** Parametros:
+**      *partida    - (Partida) dados da partida atual (por referencia)
+**       jogador    -    (int) numero do jogador que esta jogando (1 ou 2)
+**       indicePeca -    (int) indice da peca no array de pecas
+**       lado       -   (char) lado da mesa em que a peca sera jogada ('E' ou 'D')
+*/
 int realizarJogada(Partida *partida, int jogador, int indicePeca, char lado) {
-    int troca;
+    int troca; // variavel auxiliar usada para inverter os lados da peca quando necessario
     int i;
     
     if(lado == 'e') {
@@ -148,7 +182,6 @@ int realizarJogada(Partida *partida, int jogador, int indicePeca, char lado) {
         }
     }
 
-    //desloca a mesa para inserir a peca na esquerda ou adiciona na direita
     if(lado == 'E'){
         if(partida->mesaEsq == partida->p[indicePeca].esq) {
             partida->mesaEsq = partida->p[indicePeca].dir;
@@ -183,7 +216,6 @@ int realizarJogada(Partida *partida, int jogador, int indicePeca, char lado) {
         return 0;
     }
 
-    //atualizacao do vetor mesa a cada jogada
     partida->p[indicePeca].sts = Mesa;
     if(lado == 'E') {
         for(i = partida->qtdMesa; i > 0; i--) {
@@ -199,16 +231,19 @@ int realizarJogada(Partida *partida, int jogador, int indicePeca, char lado) {
     return 1;
 }
 
-//funcao para verificar condicoes de vitoria por batida ou jogo trancado
+/*
+** Verifica as condicoes de fim de jogo (vitoria por batida ou jogo trancado)
+** Parametros:
+**      *partida - (Partida) dados da partida atual (por referencia)
+*/
 int FimDeJogo(Partida *partida) {
     int i;
-    int qtdJ1 = 0;
-    int qtdJ2 = 0;
-    int pecasDisponiveis = 0;
-    int jogadaPossivelJ1 = 0;
-    int jogadaPossivelJ2 = 0;
+    int qtdJ1 = 0;             // quantidade de pecas restantes na mao do jogador 1
+    int qtdJ2 = 0;             // quantidade de pecas restantes na mao do jogador 2
+    int pecasDisponiveis = 0;  // quantidade de pecas ainda disponiveis no monte
+    int jogadaPossivelJ1 = 0;  // indica se o jogador 1 possui alguma jogada possivel
+    int jogadaPossivelJ2 = 0;  // indica se o jogador 2 possui alguma jogada possivel
 
-//conta quantas pecas cada jogador ainda possui em mao
     for(i = 0; i <= 27; i++) {
         if(partida->p[i].sts == J1) {
             qtdJ1++;
@@ -221,6 +256,7 @@ int FimDeJogo(Partida *partida) {
     if(qtdJ1 == 0) {
         return 1;
     }
+    
     if(qtdJ2 == 0) {
         return 2;
     }
@@ -235,7 +271,7 @@ int FimDeJogo(Partida *partida) {
         return 0;
     }
     
-//verifica se os jogadores possuem jogadas possiveis nas extremidades
+    //verifica se os jogadores possuem jogadas possiveis nas extremidades
     for(i = 0; i <= 13; i++) {
         if(partida->p[i].sts == J1) {
             if(partida->p[i].esq == partida->mesaEsq || partida->p[i].dir == partida->mesaEsq ||
@@ -251,11 +287,8 @@ int FimDeJogo(Partida *partida) {
         }
     }
 
-    //implementar soma
     if(jogadaPossivelJ1 == 0 && jogadaPossivelJ2 == 0) {
         return 3;
     }
     return 0;
 }
-
-

@@ -1,6 +1,6 @@
-//DOM_HJRV_Controller - Projeto DominÃ³ LP2026
-//02/09/2026
-//Hellen Araujo da Silva, JoÃ£o Vitor Carvalho MagalhÃ£es Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
+//DOM_HJRV_Controller - Projeto Domino LP2026
+//22/09/2026
+//Hellen Araujo da Silva, Joao Vitor Carvalho Magalhaes Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
 //Req07, Req14, Req17
 
 #include "Dom_HJRV_Controller.h"
@@ -8,17 +8,23 @@
 #include "Dom_HJRV_View.h"
 #include <stdio.h>
 
+/*
+** Controla o fluxo principal do jogo de domino, exibindo os menus
+** e chamando as funcoes do Model e da View conforme a opcao escolhida
+** Parametros:
+**      (nenhum)
+*/
 void iniciarJogo() {
-    Partida partida;       
-    int mesaVisual[28];    
+    Partida partida;
+    int mesaVisual[28];     // vetor utilizado para a visualizacao da mesa
     int op, opadmin, opregras;
     int qtdJogadores;
-    int jogo;
+    int jogo;               // controla o loop da partida em andamento (1 = jogo ativo, 0 = encerrado)
     int escolha;
     int indicePeca;
     char lado;
 
-    criarPecas(partida.p); 
+    criarPecas(partida.p);
 
     do {
         limparTela();
@@ -113,9 +119,9 @@ void iniciarJogo() {
                 }
                 break;
             
-            case 2:
+            case 2: 
         		limparTela();
-        		mostrarMensagem("\nDando o Cu\n");
+        		mostrarMensagem("\nTeste\n");
         		pause();
         		break;
             	//loadJogo();
@@ -159,7 +165,6 @@ void iniciarJogo() {
                         case 3:
                             limparTela();
                             mostrarMensagem("- Os turnos devem ser alternados\n");
-                            // ????
                             pause();
                             break;
                             

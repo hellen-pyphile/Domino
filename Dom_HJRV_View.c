@@ -1,12 +1,17 @@
 //DOM_HJRV_View - Projeto Dominó LP2026
-//02/09/2026
-//Hellen Araujo da Silva, João Vitor Carvalho Magalhães Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
+//22/09/2026
+//Hellen Araujo da Silva, João Vitor Carvalho Magalhaes Quintella, Rodrigo Corio Ferrer dos Santos, Victoria Spina Tavares
 //Req07, Req09, Req13, Req14, Req17
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "Dom_HJRV_View.h"
 
+/*
+** Exibe na tela todas as pecas do domino organizadas por linha
+** Parametros:
+**      p[] - (Peca) array com todas as pecas do jogo
+*/
 void mostrarPecas(Peca p[]) {
     int i, j, c = 0;
 
@@ -21,6 +26,11 @@ void mostrarPecas(Peca p[]) {
     }
 }
 
+/*
+** Limpa a tela do console, de acordo com o sistema operacional
+** Parametros:
+**      (nenhum)
+*/
 void limparTela() {
     #if defined(_WIN32) || defined(_WIN64)
         system("cls");
@@ -29,6 +39,11 @@ void limparTela() {
     #endif
 }
 
+/*
+** Pausa a execucao do programa ate que o usuario pressione uma tecla
+** Parametros:
+**      (nenhum)
+*/
 void pause() {
     #if defined(_WIN32) || defined(_WIN64)
         printf("\n\n");
@@ -39,6 +54,11 @@ void pause() {
     #endif
 }
 
+/*
+** Exibe o status atual (Disp, J1, J2 ou Mesa) de cada peca do jogo
+** Parametros:
+**      p[] - (Peca) array com todas as pecas do jogo
+*/
 void mostrarStatus(Peca p[]) {
     int i;
     
@@ -47,11 +67,21 @@ void mostrarStatus(Peca p[]) {
     }
 }
 
+/*
+** Exibe uma mensagem de texto na tela
+** Parametros:
+**      msg - (const char*) mensagem a ser exibida
+*/
 void mostrarMensagem(const char* msg) {
     printf("%s", msg);
 }
 
 
+/*
+** Inicializa/limpa o vetor visual da mesa, preenchendo-o com '.'
+** Parametros:
+**      vetorMesa[] - (int) vetor que representa visualmente a mesa (por referencia)
+*/
 void limparMesa(int vetorMesa[28]) {
     int i;
     
@@ -60,6 +90,11 @@ void limparMesa(int vetorMesa[28]) {
     }
 }
 
+/*
+** Exibe o vetor visual da mesa na tela
+** Parametros:
+**      vetorMesa[] - (int) vetor que representa visualmente a mesa
+*/
 void mostrarMesa(int vetorMesa[28]) {
     int i;
     
@@ -69,6 +104,12 @@ void mostrarMesa(int vetorMesa[28]) {
 }
 
 
+/*
+** Exibe o estado atual do jogo: pecas na mesa, extremidades e
+** as pecas na mao do jogador da vez
+** Parametros:
+**      *partida - (Partida) dados da partida atual
+*/
 void mostrarJogo(Partida *partida) {
     int i;
     
@@ -95,6 +136,11 @@ void mostrarJogo(Partida *partida) {
     printf("\n");
 }
 
+/*
+** Exibe um menu de acordo com o id informado e le a opcao escolhida pelo usuario
+** Parametros:
+**      id - (int) identificador do menu a ser exibido
+*/
 int mostrarMenu(int id) {
     int op;
 
