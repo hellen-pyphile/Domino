@@ -293,6 +293,51 @@ int FimDeJogo(Partida *partida) {
     return 0;
 }
 
+/*
+** Determina o vencedor quando o jogo termina trancado (FimDeJogo retorna 3):
+** nenhum dos dois jogadores consegue jogar e o monte esta vazio.
+** Criterios, em ordem, conforme as regras do jogo:
+**   1) Vence quem tiver menos pecas na mao
+**   2) Em caso de empate na quantidade de pecas, vence quem tiver a menor soma dos pontos na mao
+**   3) Se nenhum dos criterios acima decidir, o jogo termina empatado
+** Parametros:
+**      *partida - (Partida) dados da partida atual
+** Retorno:
+**      1 se o jogador 1 vencer, 2 se o jogador 2 vencer, 0 em caso de empate
+*/
+int desempatarJogo(Partida *partida) {
+    int i;
+    int qtdJ1 = 0, qtdJ2 = 0;
+    int somaJ1 = 0, somaJ2 = 0;
+
+    for(i = 0; i <= 27; i++) {
+        if(partida->p[i].sts == J1) {
+            qtdJ1++;
+            somaJ1 += partida->p[i].esq + partida->p[i].dir;
+        }
+        else if(partida->p[i].sts == J2) {
+            qtdJ2++;
+            somaJ2 += partida->p[i].esq + partida->p[i].dir;
+        }
+    }
+
+    if(qtdJ1 < qtdJ2) {
+        return 1;
+    }
+    if(qtdJ2 < qtdJ1) {
+        return 2;
+    }
+
+    if(somaJ1 < somaJ2) {
+        return 1;
+    }
+    if(somaJ2 < somaJ1) {
+        return 2;
+    }
+
+    return 0;
+}
+
 void salvaJogo(Partida *partida, Situacao *situacao, char TESTEX[])
 {
 	int i;

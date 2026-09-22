@@ -8,22 +8,70 @@
 #include "Dom_HJRV_View.h"
 #include <stdio.h>
 
+void executarTurnoComputador(Partida *partida);
+
 static void jogarPartida(Partida *partida, int jogadorComp) {
     Situacao situacao;   // estrutura auxiliar usada para gravar o estado do jogo em arquivo
     int jogo;            // controla o loop da partida em andamento (1 = jogo ativo, 0 = encerrado)
+    int contraComputador; // 1 se for contra a maquina, 0 se for 2 jogadores humanos
     int escolha;
     int indicePeca;
     char lado;
+    int fimJogo;
+    int vencedor;
+
+    // jogadorComp vem de qtdJogadores (menu 4): 1 = 1 jogador (contra CPU), 2 = 2 jogadores humanos
+    contraComputador = (jogadorComp == 1) ? 1 : 0;
 
     jogo = 1;
+    escolha = -1;
 
     while(jogo == 1) {
         limparTela();
 
-        printf("Jogador: %d\n", partida->turno);
-        mostrarJogo(partida);
-        escolha = mostrarMenu(5);
+        // checa fim de jogo (vitoria ou jogo trancado) antes de exibir o turno de quem for jogar
+        fimJogo = FimDeJogo(partida);
+        if(fimJogo == 1) {
+            mostrarMensagem("\nJogador 1 Venceu!\n");
+            pause();
+            break;
+        }
+        else if(fimJogo == 2) {
+            mostrarMensagem("\nJogador 2 Venceu!\n");
+            pause();
+            break;
+        }
+        else if(fimJogo == 3) {
+            vencedor = desempatarJogo(partida);
+            if(vencedor == 1) {
+                mostrarMensagem("\nJogo trancado! Jogador 1 venceu no desempate!\n");
+            }
+            else if(vencedor == 2) {
+                mostrarMensagem("\nJogo trancado! Jogador 2 venceu no desempate!\n");
+            }
+            else {
+                mostrarMensagem("\nJogo trancado! Empate!\n");
+            }
+            pause();
+            break;
+        }
 
+		if (contraComputador && partida->turno == 2) 
+		{
+            printf("Turno do Computador...\n");
+            mostrarJogo(partida);
+            pause();
+            executarTurnoComputador(partida);
+            partida->turno = 1;
+            continue; // volta ao topo do laco, onde o fim de jogo e' reavaliado
+    	}
+		else
+		{
+        	printf("Jogador: %d\n", partida->turno);
+	        mostrarJogo(partida);
+    	    escolha = mostrarMenu(5);	
+		}    
+		
         if(escolha == 0) {
             jogo = 0;
         }
@@ -58,24 +106,11 @@ static void jogarPartida(Partida *partida, int jogadorComp) {
             while(getchar() != '\n');
 
             if(realizarJogada(partida, partida->turno, indicePeca, lado) == 1) {
-
-                if(FimDeJogo(partida) == 1) {
-                    mostrarMensagem("\nJogador 1 Venceu!\n");
-                    jogo = 0;
-                    pause();
+                if(partida->turno == 1) {
+                    partida->turno = 2;
                 }
-                else if(FimDeJogo(partida) == 2) {
-                    mostrarMensagem("\nJogador 2 Venceu!\n");
-                    jogo = 0;
-                    pause();
-                }
-                else {
-                    if(partida->turno == 1) {
-                        partida->turno = 2;
-                    }
-                    else if(partida->turno == 2) {
-                        partida->turno = 1;
-                    }
+                else if(partida->turno == 2) {
+                    partida->turno = 1;
                 }
             }
             else {
@@ -194,7 +229,7 @@ void iniciarJogo() {
                             mostrarMensagem("- Ganha o jogador que jogar esvaziar sua mao primeiro\n");
                             mostrarMensagem("- Em caso de jogo fechado \n");
                             mostrarMensagem("\t - Ganha o jogador com menos pecas\n");
-                            mostrarMensagem("\t - Em caso de empate no numero de pecas, considera a mao com a menor soma (Ex: [1|0] -> 1 + 0 = 1)\n"); //verificar regra
+                            mostrarMensagem("\t - Em caso de empate no numero de pecas, considera a mao com a menor soma (Ex: [1|0] -> 1 + 0 = 1)\n");
                             mostrarMensagem("- O empate ocorre caso nenhum dos criterios acima sejam cumpridos");
                             pause();
                             break;
@@ -249,4 +284,27 @@ void iniciarJogo() {
         }
 
     } while(op != 0);
+}
+
+void executarTurnoComputador(Partida *partida) {
+    int indicePeca = -1;
+    int ladoMesa = -1; // 0 = esquerda, 1 = direita
+
+    while (1) {
+        // Ajuste com os nomes exatos das funcoes do seu Model/IA:
+        // indicePeca = escolherMelhorPeca(partida, &ladoMesa);
+
+        if (indicePeca != -1) {
+            realizarJogada(partida, 2, indicePeca, (ladoMesa == 0) ? 'E' : 'D');
+            printf("\n[Computador realizou sua jogada]\n");
+            break;
+        } else {
+            if (comprarPeca(partida, 2) == 1) {
+                printf("\n[Computador comprou uma peca do monte]\n");
+            } else {
+                printf("\n[Computador nao tem jogadas e o monte acabou. Passou a vez!]\n");
+                break;
+            }
+        }
+    }
 }

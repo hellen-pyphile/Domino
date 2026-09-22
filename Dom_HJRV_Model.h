@@ -36,7 +36,7 @@ typedef struct sitjogo
 {
 	int qtdMesaJogo; //qtd.de peças na mesa
 	int turnoJogo; //jogador atual
-	int jogadorComp; //2 = o computador não é o jogador 2
+	int jogadorComp; //quantidade de jogadores da partida salva: 1 = contra o computador, 2 = 2 jogadores humanos
 	Peca mesaJogo[28];
 	int mesaDJogo;
 	int mesaEJogo;
@@ -45,12 +45,12 @@ typedef struct sitjogo
 
 void criarPecas(Peca p[]);
 void embaralharPecas(Peca p[]);
-void mostrarPecas(Peca p[]);
 void distribuirPecas(Peca p[]);
 int primeiroLance(Partida *partida);
 int comprarPeca(Partida *partida, int jogador);
 int realizarJogada(Partida *partida, int jogador, int indicePeca, char lado);
 int FimDeJogo(Partida *partida);
+int desempatarJogo(Partida *partida);
 void salvaJogo(Partida *partida, Situacao *situacao, char TESTEX[]);
 int carregaJogo(Partida *partida, Situacao *situacao, char TESTEX[]);
 
