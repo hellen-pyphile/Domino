@@ -286,17 +286,59 @@ void iniciarJogo() {
     } while(op != 0);
 }
 
+/*
+** IA simples do computador: percorre as pecas do jogador 2 (Comp) e escolhe,
+** dentre as que encaixam em alguma das extremidades da mesa (mesaEsq ou mesaDir),
+** aquela com a maior soma de pontos (esq + dir). 
+*/
+static int escolherMelhorPeca(Partida *partida, char *lado) {
+    int i;
+    int melhorIndice = -1;
+    int melhorSoma = -1;
+    char melhorLado = 'X';
+    int soma;
+
+    for(i = 0; i <= 27; i++) {
+        if(partida->p[i].sts == J2) {
+            soma = partida->p[i].esq + partida->p[i].dir;
+
+            // verifica se encaixa na extremidade esquerda da mesa
+            if(partida->p[i].esq == partida->mesaEsq || partida->p[i].dir == partida->mesaEsq) {
+                if(soma > melhorSoma) {
+                    melhorSoma = soma;
+                    melhorIndice = i;
+                    melhorLado = 'E';
+                }
+            }
+
+            // verifica se encaixa na extremidade direita da mesa
+            if(partida->p[i].esq == partida->mesaDir || partida->p[i].dir == partida->mesaDir) {
+                if(soma > melhorSoma) {
+                    melhorSoma = soma;
+                    melhorIndice = i;
+                    melhorLado = 'D';
+                }
+            }
+        }
+    }
+
+    *lado = melhorLado;
+    return melhorIndice;
+}
+
 void executarTurnoComputador(Partida *partida) {
-    int indicePeca = -1;
-    int ladoMesa = -1; // 0 = esquerda, 1 = direita
+    int indicePeca;
+    char lado;
+    int esqJogada, dirJogada; // guardados antes de realizarJogada, que pode inverter esq/dir da peca
 
     while (1) {
-        // Ajuste com os nomes exatos das funcoes do seu Model/IA:
-        // indicePeca = escolherMelhorPeca(partida, &ladoMesa);
+        indicePeca = escolherMelhorPeca(partida, &lado);
 
         if (indicePeca != -1) {
-            realizarJogada(partida, 2, indicePeca, (ladoMesa == 0) ? 'E' : 'D');
-            printf("\n[Computador realizou sua jogada]\n");
+            esqJogada = partida->p[indicePeca].esq;
+            dirJogada = partida->p[indicePeca].dir;
+            realizarJogada(partida, 2, indicePeca, lado);
+            printf("\n[Computador jogou a peca [%d|%d] no lado %c]\n", esqJogada, dirJogada, lado);
             break;
         } else {
             if (comprarPeca(partida, 2) == 1) {
