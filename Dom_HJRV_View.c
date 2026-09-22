@@ -173,6 +173,7 @@ int mostrarMenu(int id) {
         case 5:
             printf("\n[1] - Jogar\n");
             printf("[2] - Comprar\n");
+            printf("[3] - Salvar\n");
             printf("[0] - Sair\n");
             break;
         case 6:

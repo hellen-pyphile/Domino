@@ -8,6 +8,84 @@
 #include "Dom_HJRV_View.h"
 #include <stdio.h>
 
+static void jogarPartida(Partida *partida, int jogadorComp) {
+    Situacao situacao;   // estrutura auxiliar usada para gravar o estado do jogo em arquivo
+    int jogo;            // controla o loop da partida em andamento (1 = jogo ativo, 0 = encerrado)
+    int escolha;
+    int indicePeca;
+    char lado;
+
+    jogo = 1;
+
+    while(jogo == 1) {
+        limparTela();
+
+        printf("Jogador: %d\n", partida->turno);
+        mostrarJogo(partida);
+        escolha = mostrarMenu(5);
+
+        if(escolha == 0) {
+            jogo = 0;
+        }
+        else if(escolha == 2) {
+            if(comprarPeca(partida, partida->turno) == 1) {
+                mostrarMensagem("Comprada\n");
+            }
+            else {
+                mostrarMensagem("Vazia\n");
+            }
+            pause();
+        }
+        else if(escolha == 3)
+        {
+        	situacao.jogadorComp = jogadorComp;
+        	salvaJogo(partida, &situacao, "TESTEX.txt");
+        	mostrarMensagem("Jogo Salvo\n");
+        	pause();
+		}
+
+        else if(escolha == 1) {
+            printf("\nIndice da peca: ");
+            if(scanf("%d", &indicePeca) != 1) {
+                indicePeca = -1;
+            }
+            while(getchar() != '\n');
+
+            printf("\nLado (E ou D): ");
+            if(scanf(" %c", &lado) != 1) {
+                lado = 'X';
+            }
+            while(getchar() != '\n');
+
+            if(realizarJogada(partida, partida->turno, indicePeca, lado) == 1) {
+
+                if(FimDeJogo(partida) == 1) {
+                    mostrarMensagem("\nJogador 1 Venceu!\n");
+                    jogo = 0;
+                    pause();
+                }
+                else if(FimDeJogo(partida) == 2) {
+                    mostrarMensagem("\nJogador 2 Venceu!\n");
+                    jogo = 0;
+                    pause();
+                }
+                else {
+                    if(partida->turno == 1) {
+                        partida->turno = 2;
+                    }
+                    else if(partida->turno == 2) {
+                        partida->turno = 1;
+                    }
+                }
+            }
+            else {
+                mostrarMensagem("Invalida\n");
+                pause();
+            }
+        }
+    }
+}
+
 /*
 ** Controla o fluxo principal do jogo de domino, exibindo os menus
 ** e chamando as funcoes do Model e da View conforme a opcao escolhida
@@ -16,13 +94,10 @@
 */
 void iniciarJogo() {
     Partida partida;
+    Situacao situacao;      // estrutura auxiliar usada para ler/gravar o estado do jogo em arquivo
     int mesaVisual[28];     // vetor utilizado para a visualizacao da mesa
     int op, opadmin, opregras;
     int qtdJogadores;
-    int jogo;               // controla o loop da partida em andamento (1 = jogo ativo, 0 = encerrado)
-    int escolha;
-    int indicePeca;
-    char lado;
 
     criarPecas(partida.p);
 
@@ -55,76 +130,22 @@ void iniciarJogo() {
                 mostrarMensagem("Pecas criadas, embaralhadas e distribuidas.\n");
                 pause();
     			primeiroLance(&partida);
-                
-                jogo = 1;
-                
-                while(jogo == 1) {
-                    limparTela();
-                    
-                    printf("Jogador: %d\n", partida.turno);
-                    mostrarJogo(&partida);
-                    escolha = mostrarMenu(5);
-                    
-                    if(escolha == 0) {
-                        jogo = 0;
-                    }
-                    else if(escolha == 2) {
-                        if(comprarPeca(&partida, partida.turno) == 1) {
-                            mostrarMensagem("Comprada\n");
-                        }
-                        else {
-                            mostrarMensagem("Vazia\n");
-                        }
-                        pause();
-                    }
-                    else if(escolha == 1) {
-                        printf("\nIndice da peca: ");
-                        if(scanf("%d", &indicePeca) != 1) {
-                            indicePeca = -1;
-                        }
-                        while(getchar() != '\n');
-                        
-                        printf("\nLado (E ou D): ");
-                        if(scanf(" %c", &lado) != 1) {
-                            lado = 'X';
-                        }
-                        while(getchar() != '\n');
-                        
-                        if(realizarJogada(&partida, partida.turno, indicePeca, lado) == 1) {
-                            
-                            if(FimDeJogo(&partida) == 1) {
-                                mostrarMensagem("\nJogador 1 Venceu!\n");
-                                jogo = 0;
-                                pause();
-                            }
-                            else if(FimDeJogo(&partida) == 2) {
-                                mostrarMensagem("\nJogador 2 Venceu!\n");
-                                jogo = 0;
-                                pause();
-                            }
-                            else {
-                                if(partida.turno == 1) {
-                                    partida.turno = 2;
-                                }
-                                else if(partida.turno == 2) {
-                                    partida.turno = 1;
-                                }
-                            }
-                        }
-                        else {
-                            mostrarMensagem("Invalida\n");
-                            pause();
-                        }
-                    }
-                }
+
+                jogarPartida(&partida, qtdJogadores);
                 break;
-            
-            case 2: 
+
+            case 2:
         		limparTela();
-        		mostrarMensagem("\nTeste\n");
-        		pause();
+        		if(carregaJogo(&partida, &situacao, "TESTEX.txt") == 1) {
+        			mostrarMensagem("Jogo carregado com sucesso!\n");
+        			pause();
+        			jogarPartida(&partida, situacao.jogadorComp);
+        		}
+        		else {
+        			mostrarMensagem("\nNenhum jogo salvo foi encontrado.\n");
+        			pause();
+        		}
         		break;
-            	//loadJogo();
             
             case 3:
                 limparTela();

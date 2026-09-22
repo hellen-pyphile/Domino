@@ -292,3 +292,81 @@ int FimDeJogo(Partida *partida) {
     }
     return 0;
 }
+
+void salvaJogo(Partida *partida, Situacao *situacao, char TESTEX[])
+{
+	int i;
+	
+	for(i = 0; i <= 27; i++)
+	{
+		situacao->pecasJogo[i] = partida->p[i];
+		situacao->mesaJogo[i] = partida->mesa[i];
+	}
+	situacao->turnoJogo = partida->turno;
+	situacao->qtdMesaJogo = partida->qtdMesa;
+	situacao->mesaDJogo = partida->mesaDir;
+	situacao->mesaEJogo = partida->mesaEsq;
+
+	FILE *fp = fopen(TESTEX, "wb"); //grava em modo binario, pois estamos gravando a struct inteira (fwrite), nao texto
+	if(fp == NULL)
+	{
+		printf("Arquivo nao pode ser aberto");
+		return;
+	}
+	
+	if(fwrite(situacao, sizeof(Situacao), 1, fp) != 1) 
+    {
+        printf("Erro na gravacao do arquivo\n");
+    }
+	fclose(fp);
+}
+
+/*
+** Le o arquivo gravado por salvaJogo() e reconstroi o estado da partida
+** (pecas, mesa, turno e extremidades) a partir dele
+** Parametros:
+**      *partida - (Partida)  onde o estado recuperado sera restaurado (por referencia)
+**      *situacao - (Situacao) estrutura auxiliar usada para ler o arquivo (por referencia)
+**       TESTEX[] -   (char)  nome do arquivo a ser lido
+** Retorno:
+**      1 se o jogo foi carregado com sucesso, 0 caso o arquivo nao exista/nao possa ser lido
+*/
+int carregaJogo(Partida *partida, Situacao *situacao, char TESTEX[])
+{
+	int i;
+
+	FILE *fp = fopen(TESTEX, "rb"); //le em modo binario, simetrico ao "wb" usado na gravacao
+	if(fp == NULL)
+	{
+		return 0;
+	}
+
+	if(fread(situacao, sizeof(Situacao), 1, fp) != 1)
+	{
+		fclose(fp);
+		return 0;
+	}
+	fclose(fp);
+
+	/* 
+	** restaura cada uma das 28 pecas exatamente como estavam (valores e status),
+	** sem depender da ordem em que criarPecas() as gera, pois o embaralhamento
+	** ja havia alterado essa ordem antes da gravacao
+	*/
+	for(i = 0; i <= 27; i++)
+	{
+		partida->p[i] = situacao->pecasJogo[i];
+	}
+
+	partida->qtdMesa = situacao->qtdMesaJogo;
+	for(i = 0; i < partida->qtdMesa; i++)
+	{
+		partida->mesa[i] = situacao->mesaJogo[i];
+	}
+
+	partida->turno = situacao->turnoJogo;
+	partida->mesaEsq = situacao->mesaEJogo;
+	partida->mesaDir = situacao->mesaDJogo;
+
+	return 1;
+}

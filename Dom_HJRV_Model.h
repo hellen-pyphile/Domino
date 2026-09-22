@@ -32,8 +32,15 @@ typedef struct stpartida {
     int qtdMesa;    // quantidade de pecas atualmente na mesa
 } Partida;
 
-struct sitjogo {
-	int qtdMesaJogo;
+typedef struct sitjogo
+{
+	int qtdMesaJogo; //qtd.de peças na mesa
+	int turnoJogo; //jogador atual
+	int jogadorComp; //2 = o computador não é o jogador 2
+	Peca mesaJogo[28];
+	int mesaDJogo;
+	int mesaEJogo;
+	Peca pecasJogo[28]; // registro completo (esq, dir e status) de cada uma das 28 pecas
 }Situacao;
 
 void criarPecas(Peca p[]);
@@ -44,5 +51,7 @@ int primeiroLance(Partida *partida);
 int comprarPeca(Partida *partida, int jogador);
 int realizarJogada(Partida *partida, int jogador, int indicePeca, char lado);
 int FimDeJogo(Partida *partida);
+void salvaJogo(Partida *partida, Situacao *situacao, char TESTEX[]);
+int carregaJogo(Partida *partida, Situacao *situacao, char TESTEX[]);
 
 #endif
