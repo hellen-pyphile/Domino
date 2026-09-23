@@ -473,3 +473,42 @@ int jogadaPossivel(Partida *partida, int jogador)
 
         return 1;
     }
+
+int escolherMelhorPeca(Partida *partida, char *lado) 
+{
+    int i;
+    int melhorIndice = -1;
+    int melhorSoma = -1;
+    char melhorLado = 'X';
+    int soma;
+
+    for(i = 0; i <= 27; i++) {
+        if(partida->p[i].sts == J2) {
+            soma = partida->p[i].esq + partida->p[i].dir;
+
+            if(partida->p[i].esq == partida->mesaEsq ||
+               partida->p[i].dir == partida->mesaEsq) {
+
+                if(soma > melhorSoma) {
+                    melhorSoma = soma;
+                    melhorIndice = i;
+                    melhorLado = 'E';
+                }
+            }
+
+            if(partida->p[i].esq == partida->mesaDir ||
+               partida->p[i].dir == partida->mesaDir) {
+
+                if(soma > melhorSoma) {
+                    melhorSoma = soma;
+                    melhorIndice = i;
+                    melhorLado = 'D';
+                }
+            }
+        }
+    }
+
+    *lado = melhorLado;
+
+    return melhorIndice;
+}

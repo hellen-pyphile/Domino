@@ -201,3 +201,101 @@ int mostrarMenu(int id) {
 
     return op;
 }
+
+/*
+** Exibe na tela qual jogador realizara o turno atual
+** Parametros:
+**       jogador          - (int) numero do jogador atual (1 ou 2)
+**       contraComputador - (int) indica se a partida e contra o computador
+*/
+void mostrarTurno(int jogador, int contraComputador)
+{
+    if(contraComputador == 1 && jogador == 2)
+    {
+        printf("Turno do Computador...\n");
+    }
+    else
+    {
+        printf("Jogador: %d\n", jogador);
+    }
+}
+
+/*
+** Solicita ao jogador o indice da peca que deseja jogar
+** Parametros:
+**      (nenhum)
+** Retorno:
+**      indice informado pelo jogador ou -1 caso a entrada seja invalida
+*/
+int solicitarIndicePeca(void)
+{
+    int indicePeca;
+
+    printf("\nIndice da peca: ");
+
+    if(scanf("%d", &indicePeca) != 1)
+    {
+        indicePeca = -1;
+    }
+
+    while(getchar() != '\n');
+
+    return indicePeca;
+}
+
+/*
+** Solicita ao jogador o lado da mesa em que deseja realizar a jogada
+** Parametros:
+**      (nenhum)
+** Retorno:
+**      lado informado pelo jogador ('E' ou 'D') ou 'X' caso a entrada seja invalida
+*/
+char solicitarLado(void)
+{
+    char lado;
+
+    printf("\nLado (E ou D): ");
+
+    if(scanf(" %c", &lado) != 1)
+    {
+        lado = 'X';
+    }
+
+    while(getchar() != '\n');
+
+    return lado;
+}
+
+/*
+** Exibe a jogada realizada pelo computador
+** Parametros:
+**       esq  - (int) valor esquerdo da peca jogada
+**       dir  - (int) valor direito da peca jogada
+**       lado - (char) lado da mesa onde a peca foi colocada
+*/
+void mostrarJogadaComputador(int esq, int dir, char lado)
+{
+    printf("\n[Computador jogou a peca [%d|%d] no lado %c]\n",
+           esq, dir, lado);
+}
+
+/*
+** Exibe uma mensagem informando que o computador comprou uma peca
+** Parametros:
+**      (nenhum)
+*/
+void mostrarCompraComputador(void)
+{
+    printf("\n[Computador comprou uma peca do monte]\n");
+}
+
+/*
+** Exibe uma mensagem informando que o computador passou o turno
+** por nao possuir jogadas e nao haver mais pecas disponiveis
+** Parametros:
+**      (nenhum)
+*/
+void mostrarPasseComputador(void)
+{
+    printf("\n[Computador nao tem jogadas e o monte acabou. Passou a vez!]\n");
+}

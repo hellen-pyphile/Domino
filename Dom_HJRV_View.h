@@ -16,5 +16,11 @@ void limparMesa(int vetorMesa[28]);
 void mostrarMesa(int vetorMesa[28]);
 void mostrarJogo(Partida *partida, int qtdJogadores);
 int mostrarMenu(int id);
+void mostrarTurno(int jogador, int contraComputador);
+int solicitarIndicePeca(void);
+char solicitarLado(void);
+void mostrarJogadaComputador(int esq, int dir, char lado);
+void mostrarCompraComputador(void);
+void mostrarPasseComputador(void);
 
 #endif
