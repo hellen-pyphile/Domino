@@ -163,6 +163,11 @@ int realizarJogada(Partida *partida, int jogador, int indicePeca, char lado) {
     int troca; // variavel auxiliar usada para inverter os lados da peca quando necessario
     int i;
     
+    //Valida se o indice e' valido antes de acessar o array
+    if (indicePeca < 0 || indicePeca > 27) {
+        return 0;
+    }
+
     if(lado == 'e') {
         lado = 'E';
     }
