@@ -54,5 +54,6 @@ int desempatarJogo(Partida *partida);
 void salvaJogo(Partida *partida, Situacao *situacao, char TESTEX[]);
 int carregaJogo(Partida *partida, Situacao *situacao, char TESTEX[]);
 int jogadaPossivel(Partida *partida, int jogador);
+int passarTurno(Partida *partida, int jogador);
 
 #endif

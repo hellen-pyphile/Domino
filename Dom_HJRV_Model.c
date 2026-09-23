@@ -241,8 +241,6 @@ int FimDeJogo(Partida *partida) {
     int qtdJ1 = 0;             // quantidade de pecas restantes na mao do jogador 1
     int qtdJ2 = 0;             // quantidade de pecas restantes na mao do jogador 2
     int pecasDisponiveis = 0;  // quantidade de pecas ainda disponiveis no monte
-    int jogadaPossivelJ1 = 0;  // indica se o jogador 1 possui alguma jogada possivel
-    int jogadaPossivelJ2 = 0;  // indica se o jogador 2 possui alguma jogada possivel
 
     for(i = 0; i <= 27; i++) {
         if(partida->p[i].sts == J1) {
@@ -270,26 +268,12 @@ int FimDeJogo(Partida *partida) {
     if(pecasDisponiveis > 0) {
         return 0;
     }
-    
-    //verifica se os jogadores possuem jogadas possiveis nas extremidades
-    for(i = 0; i <= 13; i++) {
-        if(partida->p[i].sts == J1) {
-            if(partida->p[i].esq == partida->mesaEsq || partida->p[i].dir == partida->mesaEsq ||
-               partida->p[i].esq == partida->mesaDir || partida->p[i].dir == partida->mesaDir) {
-                jogadaPossivelJ1 = 1;
+    if(jogadaPossivel(partida, 1) == 0 &&
+        jogadaPossivel(partida, 2) == 0)
+            {
+                return 3;
             }
-        }
-        else if(partida->p[i].sts == J2) {
-            if(partida->p[i].esq == partida->mesaEsq || partida->p[i].dir == partida->mesaEsq ||
-               partida->p[i].esq == partida->mesaDir || partida->p[i].dir == partida->mesaDir) {
-                jogadaPossivelJ2 = 1;
-            }
-        }
-    }
-
-    if(jogadaPossivelJ1 == 0 && jogadaPossivelJ2 == 0) {
-        return 3;
-    }
+            
     return 0;
 }
 
@@ -452,4 +436,40 @@ int jogadaPossivel(Partida *partida, int jogador)
         }
 
         return 0;
+    }
+
+    /*
+    ** Verifica se o jogador pode passar o turno e, caso seja permitido,
+    ** altera o turno para o outro jogador
+    ** Parametros:
+    **      *partida - (Partida) dados da partida atual (por referencia)
+    **       jogador -    (int) numero do jogador que deseja passar o turno (1 ou 2)
+    */
+    int passarTurno(Partida *partida, int jogador)
+    {
+        int i;
+
+        if(jogadaPossivel(partida, jogador) == 1)
+        {
+            return 0;
+        }
+
+        for(i = 0; i <= 27; i++)
+        {
+            if(partida->p[i].sts == Disp)
+            {
+                return 0;
+            }
+        }
+
+        if(jogador == 1)
+        {
+            partida->turno = 2;
+        }
+        else if(jogador == 2)
+        {
+            partida->turno = 1;
+        }
+
+        return 1;
     }

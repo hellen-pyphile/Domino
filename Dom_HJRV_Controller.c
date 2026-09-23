@@ -107,6 +107,20 @@ static void jogarPartida(Partida *partida, int jogadorComp) {
         	pause();
 		}
 
+        else if(escolha == 4)
+            {
+                if (passarTurno(partida, partida->turno) == 1)
+                {
+                    mostrarMensagem("Turno passado\n");
+                }
+                else
+                {
+                    mostrarMensagem("Nao e possivel passar");
+                }
+                
+                pause();
+
+            }
         else if(escolha == 1) {
             printf("\nIndice da peca: ");
             if(scanf("%d", &indicePeca) != 1) {
