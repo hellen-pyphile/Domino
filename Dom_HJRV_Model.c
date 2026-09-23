@@ -415,3 +415,41 @@ int carregaJogo(Partida *partida, Situacao *situacao, char TESTEX[])
 
 	return 1;
 }
+
+/*
+** Verifica se o jogador possui alguma peca que possa ser jogada
+** em uma das extremidades atuais da mesa
+** Parametros:
+**      *partida - (Partida) dados da partida atual
+**       jogador -    (int) numero do jogador que sera verificado (1 ou 2)
+** Retorno:
+**      1 se o jogador possuir alguma jogada possivel, 0 caso contrario
+*/
+int jogadaPossivel(Partida *partida, int jogador)
+
+    {
+        int i;
+        statusPeca statusJogador;
+
+        if(jogador == 1)
+        {
+            statusJogador = J1;
+        }
+        else
+        {
+            statusJogador = J2;
+        }
+
+        for(i = 0; i <= 27; i++)
+        {
+            if(partida->p[i].sts == statusJogador)
+            {
+                if(partida->p[i].esq == partida->mesaEsq || partida->p[i].dir == partida->mesaEsq || partida->p[i].esq == partida->mesaDir || partida->p[i].dir == partida->mesaDir)
+                {
+                    return 1;
+                }
+            }
+        }
+
+        return 0;
+    }

@@ -14,7 +14,7 @@ void mostrarStatus(Peca p[]);
 void mostrarMensagem(const char* msg);
 void limparMesa(int vetorMesa[28]);
 void mostrarMesa(int vetorMesa[28]);
-void mostrarJogo(Partida *partida);
+void mostrarJogo(Partida *partida, int qtdJogadores);
 int mostrarMenu(int id);
 
 #endif
