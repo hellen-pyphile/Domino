@@ -110,17 +110,17 @@ void mostrarMesa(int vetorMesa[28]) {
 ** Parametros:
 **      *partida - (Partida) dados da partida atual
 */
-void mostrarJogo(Partida *partida) {
+void mostrarJogo(Partida *partida, int qtdJogadores) {
     int i;
-    
+
     printf("\n");
-    
+
     for(i = 0; i < partida->qtdMesa; i++) {
         printf("[%d|%d] ", partida->mesa[i].esq, partida->mesa[i].dir);
     }
-    
+
     printf("\n\n[%d] e [%d]\n\n", partida->mesaEsq, partida->mesaDir);
-    
+
     for(i = 0; i <= 27; i++) {
         if(partida->turno == 1) {
             if(partida->p[i].sts == J1) {
@@ -129,7 +129,12 @@ void mostrarJogo(Partida *partida) {
         }
         else if(partida->turno == 2) {
             if(partida->p[i].sts == J2) {
-                printf("%d:[%d|%d]  ", i, partida->p[i].esq, partida->p[i].dir);
+                if (qtdJogadores == 1) {
+                    printf("%d:[X|X] ", i);
+                }
+                else {
+                    printf("%d:[%d|%d]  ", i, partida->p[i].esq, partida->p[i].dir);
+                }
             }
         }
     }

@@ -34,7 +34,7 @@ typedef struct stpartida {
 
 typedef struct sitjogo
 {
-	int qtdMesaJogo; //qtd.de peças na mesa
+	int qtdMesaJogo; //qtd.de peï¿½as na mesa
 	int turnoJogo; //jogador atual
 	int jogadorComp; //quantidade de jogadores da partida salva: 1 = contra o computador, 2 = 2 jogadores humanos
 	Peca mesaJogo[28];
@@ -53,5 +53,6 @@ int FimDeJogo(Partida *partida);
 int desempatarJogo(Partida *partida);
 void salvaJogo(Partida *partida, Situacao *situacao, char TESTEX[]);
 int carregaJogo(Partida *partida, Situacao *situacao, char TESTEX[]);
+int jogadaPossivel(Partida *partida, int jogador);
 
 #endif

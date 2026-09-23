@@ -59,7 +59,7 @@ static void jogarPartida(Partida *partida, int jogadorComp) {
 		if (contraComputador && partida->turno == 2) 
 		{
             printf("Turno do Computador...\n");
-            mostrarJogo(partida);
+            mostrarJogo(partida, jogadorComp);
             pause();
             executarTurnoComputador(partida);
             partida->turno = 1;
@@ -68,7 +68,22 @@ static void jogarPartida(Partida *partida, int jogadorComp) {
 		else
 		{
         	printf("Jogador: %d\n", partida->turno);
-	        mostrarJogo(partida);
+	        mostrarJogo(partida, jogadorComp);
+            while (jogadaPossivel(partida, partida->turno) == 0)
+            {
+                if(comprarPeca(partida, partida->turno) == 0)
+                {
+                    break;
+                }
+                
+                mostrarMensagem("\nNenhuma jogada valida encontrada. Uma peca foi comprada\n");
+                pause();
+
+                limparTela();
+                printf("Jogador: %d\n", partida->turno);
+                mostrarJogo(partida, jogadorComp);
+            }
+            
     	    escolha = mostrarMenu(5);	
 		}    
 		
