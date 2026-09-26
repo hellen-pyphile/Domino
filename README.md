@@ -43,17 +43,19 @@ cd domino-lp2026
 ```
 
 Compile os módulos do projeto:
-```
-Bash
+```Bash
 gcc Dom_HJRV_PROJETO.c Dom_HJRV_Controller.c Dom_HJRV_Model.c Dom_HJRV_View.c -o domino
 ```
 Execute o jogo:
-
-# No Linux / macOS:
+- No Linux / macOS:
+```Bash
 ./domino
+```
 
-# No Windows:
+- No Windows:
+```Bash
 domino.exe
+```
 
 ## 🎮 Funcionalidades e Menus
 Menu Principal
